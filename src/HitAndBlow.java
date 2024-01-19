@@ -52,7 +52,7 @@ class HitAndBlow {
 	public void askHint(Scanner scanner) {
 		System.out.print("何桁目の数字を知りたいですか。 >>");
 		int digit = scanner.nextInt();
-		System.out.printf("%d桁目の数字は%dです\n", digit, targetNums.get(digit - 1));
+		System.out.printf("%d桁目の数字は%dです\n", digit, this.targetNums.get(digit - 1));
 	}
 
 	// Hit数とBlow数のチェック
@@ -61,8 +61,8 @@ class HitAndBlow {
 		int blow = 0;
 
 		for (int i = 0; i < answerList.size(); i++) {
-			if (targetNums.contains(answerList.get(i))) {
-				if (targetNums.get(i).equals(answerList.get(i))) {
+			if (this.targetNums.contains(answerList.get(i))) {
+				if (this.targetNums.get(i) == answerList.get(i)) {
 					hit++;
 				} else {
 					blow++;
@@ -78,7 +78,8 @@ class HitAndBlow {
 	private ArrayList<Integer> splitInteger(int number) {
 		ArrayList<Integer> digitList = new ArrayList<>();
 
-		while (number > 0) {
+		
+		while (digitList.size() != numberOfDigits) {
 			int digit = number % 10;
 			digitList.add(0, digit);
 			number /= 10;
