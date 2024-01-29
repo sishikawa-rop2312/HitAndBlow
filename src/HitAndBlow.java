@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,7 +19,7 @@ class HitAndBlow {
 		// ターゲットの数字を生成
 		createTargetNums();
 	}
-	
+
 	// ターゲットの数字を生成
 	private void createTargetNums() {
 		ArrayList<Integer> targetList = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
@@ -32,7 +34,8 @@ class HitAndBlow {
 	}
 
 	// ナンバーを回答
-	public void answerNums(Scanner scanner) {
+	public boolean answerNums(Scanner scanner) throws IOException {
+		boolean isAnswerEnd = false;
 		this.count++;
 		System.out.print(numberOfDigits + "桁の数字を入力してください。 >>");
 		int answerIntNums = scanner.nextInt();
@@ -43,16 +46,35 @@ class HitAndBlow {
 
 		// Hit数がターゲット桁数と同じなら全問正解のためクリア
 		if (numberOfDigits == checkResult[0]) {
+			isAnswerEnd = true;
 			System.out.println("正解です！！！！！！！！！！\n" + count + "回目でクリアしました。");
-			System.exit(0);
+
+			List<CsvData> dataList = CsvUtils.readCsv("data.csv");
+			// 現在の年月日時分秒を取得
+			LocalDateTime currentDateTime = LocalDateTime.now();
+
+			// データを追加
+			dataList.add(new CsvData(
+					currentDateTime,
+					this.numberOfDigits,
+					this.count));
+
+			// CSVファイルに書き込む
+			try {
+				CsvUtils.writeCsv("data.csv", dataList);
+			} catch (IOException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
 		}
+		return isAnswerEnd;
 	}
 
 	// 指定した桁の数字をヒントで表示
 	public void askHint(Scanner scanner) {
 		System.out.print("何桁目の数字を知りたいですか。 >>");
 		int digit = scanner.nextInt();
-		System.out.printf("%d桁目の数字は%dです\n", digit, this.targetNums.get(digit - 1));
+		System.out.printf("%d桁目の数字は%dです\n", digit, targetNums.get(digit - 1));
 	}
 
 	// Hit数とBlow数のチェック
@@ -61,8 +83,8 @@ class HitAndBlow {
 		int blow = 0;
 
 		for (int i = 0; i < answerList.size(); i++) {
-			if (this.targetNums.contains(answerList.get(i))) {
-				if (this.targetNums.get(i) == answerList.get(i)) {
+			if (targetNums.contains(answerList.get(i))) {
+				if (targetNums.get(i).equals(answerList.get(i))) {
 					hit++;
 				} else {
 					blow++;
@@ -78,7 +100,6 @@ class HitAndBlow {
 	private ArrayList<Integer> splitInteger(int number) {
 		ArrayList<Integer> digitList = new ArrayList<>();
 
-		
 		while (digitList.size() != numberOfDigits) {
 			int digit = number % 10;
 			digitList.add(0, digit);
