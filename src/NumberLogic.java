@@ -6,13 +6,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-class HitAndBlow {
+class NumberLogic {
 	private ArrayList<Integer> targetNums;
 	private int numberOfDigits;
 	private int count;
 
 	// コンストラクタ
-	public HitAndBlow(int numberOfDigits) {
+	public NumberLogic(int numberOfDigits) {
 		this.numberOfDigits = numberOfDigits;
 		this.count = 0;
 
@@ -21,7 +21,7 @@ class HitAndBlow {
 	}
 
 	// ターゲットの数字を生成
-	private void createTargetNums() {
+	public void createTargetNums() {
 		ArrayList<Integer> targetList = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
 		Collections.shuffle(targetList);
 		this.targetNums = new ArrayList<>();
@@ -49,7 +49,7 @@ class HitAndBlow {
 			isAnswerEnd = true;
 			System.out.println("正解です！！！！！！！！！！\n" + count + "回目でクリアしました。");
 
-			List<CsvData> dataList = CsvUtils.readCsv("data.csv");
+			List<CsvData> dataList = CsvUtils.readCsvFile(CsvData.CSV_FILE_NAME);
 			// 現在の年月日時分秒を取得
 			LocalDateTime currentDateTime = LocalDateTime.now();
 
@@ -61,9 +61,8 @@ class HitAndBlow {
 
 			// CSVファイルに書き込む
 			try {
-				CsvUtils.writeCsv("data.csv", dataList);
+				CsvUtils.writeCsvFile(CsvData.CSV_FILE_NAME, dataList);
 			} catch (IOException e) {
-				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
 			}
 		}
@@ -78,7 +77,7 @@ class HitAndBlow {
 	}
 
 	// Hit数とBlow数のチェック
-	private int[] checkHitAndBlow(ArrayList<Integer> answerList) {
+	public int[] checkHitAndBlow(ArrayList<Integer> answerList) {
 		int hit = 0;
 		int blow = 0;
 
@@ -97,7 +96,7 @@ class HitAndBlow {
 	}
 
 	// 整数をArrayListの要素に分割
-	private ArrayList<Integer> splitInteger(int number) {
+	public ArrayList<Integer> splitInteger(int number) {
 		ArrayList<Integer> digitList = new ArrayList<>();
 
 		while (digitList.size() != numberOfDigits) {
@@ -110,7 +109,7 @@ class HitAndBlow {
 	}
 
 	// ターゲットナンバーを表示
-	private void printArray(List<Integer> list) {
-		System.out.printf("デバッグ用：%s\n\n", list);
+	public void printArray(List<Integer> list) {
+		System.out.printf("デバッグ用：%s\n", list);
 	}
 }
