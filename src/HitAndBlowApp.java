@@ -10,7 +10,7 @@ public class HitAndBlowApp {
 
 		while (true) {
 			System.out.print("\n1.遊ぶ 2.履歴を見る 3.アプリ終了 >>");
-			int mode = scanner.nextInt();
+			int mode = InputUtils.inputScannerInteger(scanner);
 
 			switch (mode) {
 			case 1:
@@ -61,7 +61,7 @@ public class HitAndBlowApp {
 
 		while (true) {
 			System.out.print("\n1.回答 2.ヒント 3.Topへ戻る >>");
-			int select = scanner.nextInt();
+			int select = InputUtils.inputScannerInteger(scanner);
 
 			switch (select) {
 			case 1:

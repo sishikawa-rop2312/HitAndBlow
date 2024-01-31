@@ -29,7 +29,7 @@ class NumberLogic {
 		}
 
 		// Todo デバッグ用なので削除
-		printArray(this.targetNums);
+//		printArray(this.targetNums);
 	}
 
 	// ナンバーを回答
@@ -37,7 +37,7 @@ class NumberLogic {
 		boolean isAnswerEnd = false;
 		this.count++;
 		System.out.print(numberOfDigits + "桁の数字を入力してください。 >>");
-		int answerIntNums = scanner.nextInt();
+		int answerIntNums = InputUtils.inputScannerInteger(scanner);
 
 		ArrayList<Integer> answerNums = splitInteger(answerIntNums);
 		int[] checkResult = checkHitAndBlow(answerNums);
@@ -71,7 +71,7 @@ class NumberLogic {
 	// 指定した桁の数字をヒントで表示
 	public void askHint(Scanner scanner) {
 		System.out.print("何桁目の数字を知りたいですか。 >>");
-		int digit = scanner.nextInt();
+		int digit = InputUtils.inputScannerInteger(scanner);
 		if (digit > this.numberOfDigits) {
 			System.out.printf(this.numberOfDigits + "桁しかありません。");
 			return;
