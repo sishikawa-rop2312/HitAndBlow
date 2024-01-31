@@ -48,32 +48,38 @@ class NumberLogic {
 		if (numberOfDigits == checkResult[0]) {
 			isAnswerEnd = true;
 			System.out.println("正解です！！！！！！！！！！\n" + count + "回目でクリアしました。");
-
-			List<CsvData> dataList = CsvUtils.readCsvFile(CsvData.CSV_FILE_NAME);
-			// 現在の年月日時分秒を取得
-			LocalDateTime currentDateTime = LocalDateTime.now();
-
-			// データを追加
-			dataList.add(new CsvData(
-					currentDateTime,
-					this.numberOfDigits,
-					this.count));
-
-			// CSVファイルに書き込む
-			try {
-				CsvUtils.writeCsvFile(CsvData.CSV_FILE_NAME, dataList);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			saveCsvData();
 		}
 		return isAnswerEnd;
+	}
+	
+	// CSVデータに保存
+	public void saveCsvData() throws IOException {
+		List<CsvData> dataList = CsvUtils.readCsvFile(CsvData.CSV_FILE_NAME);
+		// 現在の年月日時分秒を取得
+		LocalDateTime currentDateTime = LocalDateTime.now();
+
+		// データを追加
+		dataList.add(new CsvData(
+				currentDateTime,
+				this.numberOfDigits,
+				this.count));
+
+		// CSVファイルに書き込む
+		CsvUtils.writeCsvFile(CsvData.CSV_FILE_NAME, dataList);
 	}
 
 	// 指定した桁の数字をヒントで表示
 	public void askHint(Scanner scanner) {
 		System.out.print("何桁目の数字を知りたいですか。 >>");
 		int digit = scanner.nextInt();
-		System.out.printf("%d桁目の数字は%dです\n", digit, targetNums.get(digit - 1));
+		if (digit > this.numberOfDigits) {
+			System.out.printf(this.numberOfDigits + "桁しかありません。");
+			return;
+		}
+		else {
+			System.out.printf("%d桁目の数字は%dです\n", digit, targetNums.get(digit - 1));
+		}
 	}
 
 	// Hit数とBlow数のチェック

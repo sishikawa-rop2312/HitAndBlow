@@ -24,26 +24,29 @@ public class HitAndBlowApp {
 				System.out.println("アプリを終了します");
 				scanner.close();
 				return;
+			default:
+				System.out.println("整数1～3で入力してください");
+				break;
 			}
 		}
 	}
-	
+
 	// 履歴をCSVファイルから表示
-	public static void 	viewHistory() throws IOException {
+	public static void viewHistory() throws IOException {
 		// CSVファイルを読み込む
 		List<CsvData> loadedData = CsvUtils.readCsvFile(CsvData.CSV_FILE_NAME);
-		
-		System.out.println("No\t\tクリア日時\t\t\t\t桁数\t\t回数");
+
+		System.out.println("No\t\tクリア日時\t\t\t\t桁数\t\t回答回数");
 		System.out.println("================================================");
 		if (loadedData.isEmpty()) {
 			System.out.println("まだ履歴が存在しません");
 		} else {
-			for (int i = 0; i < loadedData.size() ;i++) {
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+			for (int i = 0; i < loadedData.size(); i++) {
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern(CsvData.FORMAT_DATE_TIME);
 				String dateTimeValue = loadedData.get(i).getDateTimeValue().format(formatter);
 				int numberOfDigits = loadedData.get(i).getNumberOfDigits();
 				int count = loadedData.get(i).getCount();
-				
+
 				System.out.println(i + "\t\t" + dateTimeValue + "\t\t" + numberOfDigits + "\t\t\t" + count);
 			}
 		}
@@ -64,8 +67,9 @@ public class HitAndBlowApp {
 			switch (select) {
 			case 1:
 				boolean isAnswerEnd = hitAndBlow.answerNums(scanner);
-				if (isAnswerEnd)
+				if (isAnswerEnd) {
 					return;
+				}
 				break;
 			case 2:
 				hitAndBlow.askHint(scanner);
