@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +33,7 @@ class NumberLogic {
 	}
 
 	// ナンバーを回答
-	public boolean answerNums(Scanner scanner) throws IOException {
+	public boolean answerNums(Scanner scanner) {
 		boolean isAnswerEnd = false;
 		this.count++;
 		System.out.print(numberOfDigits + "桁の数字を入力してください。 >>");
@@ -54,7 +53,7 @@ class NumberLogic {
 	}
 	
 	// CSVデータに保存
-	public void saveCsvData() throws IOException {
+	public void saveCsvData() {
 		List<CsvData> dataList = CsvUtils.readCsvFile(CsvData.CSV_FILE_NAME);
 		// 現在の年月日時分秒を取得
 		LocalDateTime currentDateTime = LocalDateTime.now();

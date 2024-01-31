@@ -1,11 +1,10 @@
-import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
 public class HitAndBlowApp {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		System.out.println("【Hit and Blow】～Javaバージョン～");
 		Scanner scanner = new Scanner(System.in);
 
@@ -32,7 +31,7 @@ public class HitAndBlowApp {
 	}
 
 	// 履歴をCSVファイルから表示
-	public static void viewHistory() throws IOException {
+	public static void viewHistory() {
 		// CSVファイルを読み込む
 		List<CsvData> loadedData = CsvUtils.readCsvFile(CsvData.CSV_FILE_NAME);
 
@@ -53,7 +52,7 @@ public class HitAndBlowApp {
 	}
 
 	// ゲーム開始
-	public static void playGame(Scanner scanner) throws IOException {
+	public static void playGame(Scanner scanner) {
 		System.out.print("何桁の数字で遊びますか？ >>");
 		int numberOfDigits = scanner.nextInt(); // 桁数
 		System.out.println("ゲームスタート\n" + numberOfDigits + "桁の数字を当ててください.");
