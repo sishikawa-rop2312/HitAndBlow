@@ -54,7 +54,7 @@ public class HitAndBlowApp {
 	// ゲーム開始
 	public static void playGame(Scanner scanner) {
 		System.out.print("何桁の数字で遊びますか？ >>");
-		int numberOfDigits = scanner.nextInt(); // 桁数
+		int numberOfDigits = InputUtils.inputScannerInteger(scanner); // 桁数
 		System.out.println("ゲームスタート\n" + numberOfDigits + "桁の数字を当ててください.");
 
 		NumberLogic hitAndBlow = new NumberLogic(numberOfDigits);
