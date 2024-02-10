@@ -5,7 +5,15 @@ import java.util.Scanner;
 public class HitAndBlowApp {
 
 	public static void main(String[] args) {
-		System.out.println("【Hit and Blow】～Javaバージョン～");
+		System.out.println("≪Hit and Blow≫ Javaバージョン～");
+		System.out.println();
+		System.out.println("【ゲームのルール】\n"
+				+ "コンピュータが重複のないランダムに生成した数を当てるゲームです。何桁で遊ぶかはプレイヤーが指定します。\n"
+				+ "ヒット（Hit）: 正しい数字が正しい位置にある場合、ヒットとなります。数字と位置が一致していることを示します。\n"
+				+ "ブロー（Blow）: 正しい数字が誤った位置にある場合、ブローとなります。数字は含まれているが、位置が一致していないことを示します。\n"
+				+ "プレイヤーが全ての数をヒットするとゲームクリアです。\n"
+				+ "※回答する数字は重複がないようにしてください。");
+		
 		Scanner scanner = new Scanner(System.in);
 
 		while (true) {
@@ -57,6 +65,11 @@ public class HitAndBlowApp {
 		int numberOfDigits = InputUtils.inputScannerInteger(scanner); // 桁数
 		System.out.println("ゲームスタート\n" + numberOfDigits + "桁の数字を当ててください.");
 
+		if (numberOfDigits > 10) {
+			System.out.println("桁は10以下にしてください");
+			return;
+		}
+		
 		NumberLogic hitAndBlow = new NumberLogic(numberOfDigits);
 
 		while (true) {
