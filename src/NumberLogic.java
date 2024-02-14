@@ -29,7 +29,7 @@ class NumberLogic {
 		}
 
 		// Todo デバッグ用なので削除
-		printArray(this.targetNums);
+//		printArray(this.targetNums);
 	}
 
 	// ナンバーを回答
